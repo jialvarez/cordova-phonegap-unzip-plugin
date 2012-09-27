@@ -1,0 +1,15 @@
+C:\Users\aleiva\Documents\Visual Studio 2010\Projects\ZipJialvarez\ZipJialvarez\Bin\Debug\ApplicationIcon.png
+C:\Users\aleiva\Documents\Visual Studio 2010\Projects\ZipJialvarez\ZipJialvarez\Bin\Debug\Background.png
+C:\Users\aleiva\Documents\Visual Studio 2010\Projects\ZipJialvarez\ZipJialvarez\Bin\Debug\ZipJialvarez.dll
+C:\Users\aleiva\Documents\Visual Studio 2010\Projects\ZipJialvarez\ZipJialvarez\Bin\Debug\ZipJialvarez.pdb
+C:\Users\aleiva\Documents\Visual Studio 2010\Projects\ZipJialvarez\ZipJialvarez\Bin\Debug\AppManifest.xaml
+C:\Users\aleiva\Documents\Visual Studio 2010\Projects\ZipJialvarez\ZipJialvarez\Bin\Debug\ZipJialvarez.xap
+C:\Users\aleiva\Documents\Visual Studio 2010\Projects\ZipJialvarez\ZipJialvarez\Bin\Debug\WP7CordovaClassLib.dll
+C:\Users\aleiva\Documents\Visual Studio 2010\Projects\ZipJialvarez\ZipJialvarez\obj\Debug\ResolveAssemblyReference.cache
+C:\Users\aleiva\Documents\Visual Studio 2010\Projects\ZipJialvarez\ZipJialvarez\obj\Debug\App.g.i.cs
+C:\Users\aleiva\Documents\Visual Studio 2010\Projects\ZipJialvarez\ZipJialvarez\obj\Debug\MainPage.g.i.cs
+C:\Users\aleiva\Documents\Visual Studio 2010\Projects\ZipJialvarez\ZipJialvarez\obj\Debug\ZipJialvarez.g.resources
+C:\Users\aleiva\Documents\Visual Studio 2010\Projects\ZipJialvarez\ZipJialvarez\obj\Debug\ZipJialvarez.dll
+C:\Users\aleiva\Documents\Visual Studio 2010\Projects\ZipJialvarez\ZipJialvarez\obj\Debug\ZipJialvarez.pdb
+C:\Users\aleiva\Documents\Visual Studio 2010\Projects\ZipJialvarez\ZipJialvarez\obj\Debug\XapCacheFile.xml
+C:\Users\aleiva\Documents\Visual Studio 2010\Projects\ZipJialvarez\ZipJialvarez\Bin\Debug\SharpZipLib.dll

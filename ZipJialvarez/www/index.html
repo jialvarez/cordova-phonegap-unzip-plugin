@@ -1,0 +1,63 @@
+﻿<!DOCTYPE html>
+<!--
+       Licensed to the Apache Software Foundation (ASF) under one
+       or more contributor license agreements.  See the NOTICE file
+       distributed with this work for additional information
+       regarding copyright ownership.  The ASF licenses this file
+       to you under the Apache License, Version 2.0 (the
+       "License"); you may not use this file except in compliance
+       with the License.  You may obtain a copy of the License at
+
+         http://www.apache.org/licenses/LICENSE-2.0
+
+       Unless required by applicable law or agreed to in writing,
+       software distributed under the License is distributed on an
+       "AS IS" BASIS, WITHOUT WARRANTIES OR CONDITIONS OF ANY
+       KIND, either express or implied.  See the License for the
+       specific language governing permissions and limitations
+       under the License.
+-->
+<html>
+  <head>
+    <meta name="viewport" content="width=320; user-scalable=no" />
+    <meta http-equiv="Content-type" content="text/html; charset=utf-8"/>
+      <title>Zip Demo</title>
+      <link rel="stylesheet" href="master.css" type="text/css" media="screen" title="no title"/>
+        <script type="text/javascript" charset="utf-8" src="cordova-1.7.0.js"></script>
+        <script type="text/javascript" charset="utf-8" src="zip.js"></script>
+        <script type="text/javascript" charset="utf-8" src="main.js"></script>
+
+      </head>
+  <body onload="init();" id="stage" class="theme">
+    <h1>Welcome to Zip Demo!</h1>
+    <h2>this file is located at assets/www/index.html</h2>
+    <div id="info">
+      <h4>
+        Platform: <span id="platform"> &#160;</span>,   Version: <span id="version">&#160;</span>
+      </h4>
+      <h4>
+        UUID: <span id="uuid"> &#160;</span>,   Name: <span id="name">&#160;</span>
+      </h4>
+      <h4>
+        Width: <span id="width"> &#160;</span>,   Height: <span id="height">
+          &#160;
+        </span>, Color Depth: <span id="colorDepth"></span>
+      </h4>
+    </div>
+    <div id="zipInfo">
+      <h4>
+        Name: <span id="zip_name"></span>
+      </h4>
+      <h4>
+        Full Path: <span id="zip_fullpath"></span>
+      </h4>
+      <h4>
+        Entries: <span id="zip_entries"></span>
+      </h4>
+    </div>
+    <a href="#" class="btn large" onclick="zipInfo();">Zip Information</a>
+    <a href="#" class="btn large" onclick="uncompressFromSDCard();">Unzip From SDCard</a>
+    <a href="#" class="btn large" onclick="uncompressFromURL();">Unzip From URL</a>
+    <a href="#" class="btn large" onclick="compress();">Create Zip</a>
+  </body>
+</html>

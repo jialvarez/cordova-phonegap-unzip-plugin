@@ -72,7 +72,9 @@ namespace WP7CordovaClassLib.Cordova.Commands
             Debug.WriteLine("Count: " + count);
 
             // extract last item from path (filename)
-            string name = source.Split(new Char[] { '/' })[source.Length - 1];
+            string[] fileParts = source.Split('/');
+            Debug.WriteLine("length: " + fileParts.Length);
+            string name = fileParts[fileParts.Length - 1];
 
             // prepare return for plugin to js, communication using JSON format
             string zipInfo = "{\"entries\":\"" + count + "\", \"fullPath\":\"" + source + "\", \"name\":\"" + name + "\"}";

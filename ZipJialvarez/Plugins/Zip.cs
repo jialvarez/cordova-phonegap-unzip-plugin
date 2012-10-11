@@ -31,6 +31,7 @@ using System.IO.IsolatedStorage;
 using ICSharpCode.SharpZipLib.Zip;
 using ICSharpCode.SharpZipLib.Zip.Compression.Streams;
 using System.Net;
+using System.Collections.Generic;
 
 namespace WP7CordovaClassLib.Cordova.Commands
 {
@@ -46,6 +47,8 @@ namespace WP7CordovaClassLib.Cordova.Commands
             public string target;
         }
 
+        List<string> processedEntities = new List<string>();
+
         public void info(string options)
         {
             // bring options
@@ -56,18 +59,8 @@ namespace WP7CordovaClassLib.Cordova.Commands
             Debug.WriteLine("selected source for info:" + source);
 
             // ZipFile.Count not working for me, larger process needed
-            int count = 0;
-            IsolatedStorageFile infile = IsolatedStorageFile.GetUserStoreForApplication();
-
-            using (ZipInputStream s = new ZipInputStream(infile.OpenFile(source, FileMode.Open)))
-            {
-
-                ZipEntry theEntry;
-                while ((theEntry = s.GetNextEntry()) != null)
-                {
-                    count++;
-                }
-            }
+            long count = 0;
+            count = this.getTotalOfEntries(source);
 
             Debug.WriteLine("Count: " + count);
 
@@ -100,6 +93,12 @@ namespace WP7CordovaClassLib.Cordova.Commands
             // direct access to targetPath
             string targetPath = zipOptions.target;
 
+            string lastMsg;
+
+            // get total of entries
+            long count = 0;
+            count = this.getTotalOfEntries(zipOptions.source);
+
             // open zip file
             using (ZipInputStream decompressor = new ZipInputStream(infile.OpenFile(zipOptions.source, FileMode.Open)))
             {
@@ -116,13 +115,15 @@ namespace WP7CordovaClassLib.Cordova.Commands
                     {
                         directory.CreateDirectory(directoryPath);
                     }
- 
+
+                    this.processedEntities.Add(filePath);
+
                     // don't consume cycles to write files if it's a directory
                     if (entry.IsDirectory)
                     {
                         continue;
                     }
- 
+
                     // unzip and create file
                     byte[] data = new byte[2048];
                     using (FileStream streamWriter = outfile.CreateFile(filePath))
@@ -133,8 +134,82 @@ namespace WP7CordovaClassLib.Cordova.Commands
                             streamWriter.Write(data, 0, bytesRead);
                         }
                     }
+
+                    lastMsg = this.publish(filePath, count);
                 }
             }
+        }
+
+        private string publish(String file, long totalEntities)
+	    {
+            string jsonObj;
+
+            float progress = (float) this.processedEntities.Count / totalEntities;
+            progress = (int)(progress * 100);
+
+            // construct 
+            jsonObj = "{\"progress\": \"" + progress + "\", ";
+            jsonObj += "\"entries\": \"" + (this.processedEntities.Count + 1) + "\", ";
+
+            bool completed = totalEntities == this.processedEntities.Count;
+
+            if (totalEntities == this.processedEntities.Count)
+		    {
+                jsonObj += "\"completed\": \"true\", ";
+		    }
+		    else
+		    {
+                jsonObj += "\"completed\": \"false\", ";
+            }
+
+            if (file[file.Length - 1] == '/')
+            {
+                jsonObj += "\"isFile\": \"false\", ";
+                jsonObj += "\"isDirectory\": \"true\", ";
+            }
+            else
+            {
+                jsonObj += "\"isFile\": \"true\", ";
+                jsonObj += "\"isDirectory\": \"false\", ";
+            }
+
+            jsonObj += "\"name\": \"" + file.Substring(file.LastIndexOf('/'), (file.Length - file.LastIndexOf('/'))) + "\", ";
+            jsonObj += "\"fullPath\": \"" + file + "\"}";
+
+		    PluginResult result = new PluginResult(PluginResult.Status.OK, jsonObj);
+            result.KeepCallback = true;
+
+            Debug.WriteLine(jsonObj);
+
+            // Avoid to send the message "uncompress completed" twice.
+            // This message is sended in the execute method.
+            if (!completed) {
+                this.DispatchCommandResult(result);
+            }
+
+            System.Threading.Thread.Sleep(100);
+
+		    return jsonObj;
+        }
+
+        private long getTotalOfEntries(String source)
+        {
+            long count = 0;
+
+            IsolatedStorageFile infile = IsolatedStorageFile.GetUserStoreForApplication();
+
+            // get total count of entries
+            using (ZipInputStream s = new ZipInputStream(infile.OpenFile(source, FileMode.Open)))
+            {
+
+                ZipEntry theEntry;
+                while ((theEntry = s.GetNextEntry()) != null)
+                {
+                    count++;
+                }
+            }
+
+            return count;
         }
     }
 }
